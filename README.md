@@ -23,9 +23,34 @@ $ cd zabbix_introduction
 $ git add .
 $ git commit -am "セットアップ"
 $ git create
-$ git push origin master 
+$ git push origin master
 ```
 ## <a name="2">インストール</a>
+### MySQLのインストール
+```bash
+$ knife cookbook create mysql -o ./site-cookbooks
+$ cd site-cookbooks/mysql
+```
+### zabbixのインストール
+```bash
+$ cd cookbooks/zabbix_introduction/
+$ berks init
+```
+_Berksfile_
+```
+cookbook "zabbix"
+```
+```bash
+$ berks vendor
+```
+```bash
+$ knife cookbook create zabbix -o ./site-cookbooks
+cd
+```
 ## <a name="3">設定</a>
 
 # 参照
++ [vagrant-berkshelf](https://github.com/berkshelf/vagrant-berkshelf)
++ [vagrant-omnibus](https://github.com/schisamo/vagrant-omnibus)
++ [RuntimeError: Couldn’t determine Berks versionエラーが出たら](http://kwmt27.net/index.php/2014/08/06/runtimeerror-couldnt-determine-berks-version/)
++ [Database Cookbook](https://github.com/opscode-cookbooks/database)
