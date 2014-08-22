@@ -71,6 +71,23 @@ zabbixサーバーが起動していない場合はサービスを再起動す�
 $ vagrant ssh
 $ sudo service zabbix-server restart
 ```
+### Zabbixのアップグレード
+#### サーバーのアップグレード
+```bash
+$ service zabbix-server stop
+$ mysqldump -u zabbix -p zabbix > /root/zabbix.dump
+$ cp -r /etc/zabbix /root/zabbix-conf.backup
+$ yum update zabbix zabbix-server zabbix-server-mysql zabbix-web zabbix-web-mysql
+$ service zabbix-server start
+```
+#### エージェントのアップグレード
+```bash
+$ service zabbix-agent stop
+$ cp /etc/zabbix/zabbix_agentd.conf /root
+$ rpm -Fvh zabbix-agent-2.2.3.1.el6.JP.x86_64.rpm
+$ yum update zabbix-agent
+$ service zabbix-agent start
+```
 
 ## <a name="3">設定</a>
 
