@@ -54,3 +54,4 @@ cd
 + [vagrant-omnibus](https://github.com/schisamo/vagrant-omnibus)
 + [RuntimeError: Couldn’t determine Berks versionエラーが出たら](http://kwmt27.net/index.php/2014/08/06/runtimeerror-couldnt-determine-berks-version/)
 + [Database Cookbook](https://github.com/opscode-cookbooks/database)
++ [サーバー設定ツール「Chef」の概要と基礎的な使い方 3ページ](http://sourceforge.jp/magazine/14/03/05/090000/3)

@@ -12,14 +12,3 @@ bash 'bootstrap' do
   EOC
   command "yum update -y"
 end
-
-%w{ntp}.each do |pkg|
-  package pkg do
-    action :install
-  end
-end
-
-service "ntpd" do
-  action [:enable, :start]
-  supports :status => true, :restart => true, :reload => true
-end

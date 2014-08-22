@@ -4,4 +4,3 @@ metadata
 
 cookbook "mysql"
 cookbook "database"
-cookbook "zabbix"

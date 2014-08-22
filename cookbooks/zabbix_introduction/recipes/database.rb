@@ -3,16 +3,11 @@ mysql_connection_info = {:host => "localhost",
                          :username => 'root',
                          :password => node['mysql']['server_root_password']}
 
-service "mysqld" do
-  action [:enable, :start]
-  supports :status => true, :restart => true, :reload => true
-end
-
 # /etc/my.cnfを修正
 template "/etc/my.cnf" do
     owner "root"
     group "root"
-    mode "0600"
+    mode "0644"
 end
 
 # Create a mysql database
@@ -38,11 +33,40 @@ end
 template "/etc/zabbix/zabbix_server.conf" do
     owner "root"
     group "root"
-    mode "0600"
+    mode "0644"
+    only_if {File.exists?("/etc/zabbix")}
 end
-=begin
+
 execute "MySQLデータベースに初期データをインポート" do
   cwd '/usr/share/doc/zabbix-server-mysql-2.2.5/create/'
-  command "cat schema.sql images.sql data.sql | mysql -uzabbix -pzabbixpassword zabbix"
+  only_if { command "cat schema.sql images.sql data.sql | mysql -uzabbix -pzabbixpassword zabbix" }
+end
+=begin
+template "/tmp/schema.sql" do
+    owner "root"
+    group "root"
+    mode "0644"
+end
+
+mysql_connection_info2 = {:host => "localhost",
+                         :username => 'zabbix',
+                         :password => 'zabbixpassword'}
+
+mysql_database 'zabbix' do
+  connection mysql_connection_info2
+  sql { ::File.open('/tmp/schema.sql').read }
+  only_if { action :query }
+end
+
+mysql_database 'zabbix' do
+  connection mysql_connection_info2
+  sql { ::File.open('/usr/share/doc/zabbix-server-mysql-2.2.5/create/images.sql').read }
+  action :query
+end
+
+mysql_database 'zabbix' do
+  connection mysql_connection_info2
+  sql { ::File.open('/usr/share/doc/zabbix-server-mysql-2.2.5/create/data.sql').read }
+  action :query
 end
 =end

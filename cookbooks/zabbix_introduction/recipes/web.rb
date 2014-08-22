@@ -22,15 +22,8 @@ end
   end
 end
 
-service "httpd" do
-  action [:enable, :start]
-  supports :status => true, :restart => true, :reload => true
-end
-
 template "/etc/httpd/conf.d/zabbix.conf" do
     owner "root"
     group "root"
     mode "0600"
-    notifies :restart, 'service[httpd]', :immediately
-    notifies :restart, 'service[zabbix-server]', :immediately
 end
