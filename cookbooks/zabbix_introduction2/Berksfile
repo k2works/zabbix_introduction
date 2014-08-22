@@ -1,0 +1,7 @@
+source "https://api.berkshelf.com"
+
+metadata
+
+cookbook "mysql"
+cookbook "database"
+cookbook "zabbix22", path: "../../site-cookbooks/zabbix22"
