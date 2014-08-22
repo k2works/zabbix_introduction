@@ -30,6 +30,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         recipe[database::mysql]
         recipe[mysql::server]
         recipe[zabbix22::base]
+        recipe[zabbix22::server]
         recipe[zabbix22::web]
         recipe[zabbix22::service]
         recipe[zabbix22::database]

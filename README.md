@@ -26,39 +26,28 @@ $ git create
 $ git push origin master
 ```
 ## <a name="2">インストール</a>
-### zabbixの設定
-```bash
-$ knife cookbook create zabbix22 -o ./site-cookbooks
-```
+### zabbixのインストール
+#### Zabbix SIAのyumレポジトリ登録
+_site-cookbooks/zabbix22/recipes/base.rb_
+#### Zabbixサーバのインストール
+_site-cookbooks/zabbix22/recipes/server.rb_  
+_site-cookbooks/zabbix22/recipes/database.rb_
+#### Webインターフェースのインストール
+_site-cookbooks/zabbix22/recipes/web.rb_
 
+#### zabbixエージェントのインストール
+_site-cookbooks/zabbix22/recipes/agent.rb_
+
+### データベースのインストール
 _cookbooks/zabbix_introduction/Berksfile_
-```
+```bash
 cookbook "mysql"
 cookbook "database"
-cookbook "zabbix22", path: "../../site-cookbooks/zabbix22"
 ```
 
+### プロビジョニング実行
 ```bash
-$ cd cookbooks/zabbix_introduction/
-$ berks vendor
-```
-
-_cookbooks/zabbix_introduction/Vagrantfile_
-```ruby
-config.vm.provision :chef_solo do |chef|
-  chef.run_list = %w[
-      recipe[zabbix_introduction::default]
-      recipe[database::mysql]
-      recipe[mysql::server]
-      recipe[zabbix22::base]
-      recipe[zabbix22::web]
-      recipe[zabbix22::service]
-      recipe[zabbix22::database]
-  ]
-end
-```
-プロビジョニング実行
-```bash
+$ cd cookbooks/zabbix_introduction
 $ vagrant up --provision
 ```
 
@@ -69,13 +58,13 @@ $ echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
 ```
 プロビジョニングが完了したら_http://192.168.33.10/zabbix/_にアクセスしてセットアップ。
 
-|      |     |       |
-|:---------------|:-------------|:------------|
-| Database name  |zabbix        |             |
-| User  |zabbix        |             |
-| Password  |zabbixpassword        |             |
-| ログインUsername |Admin        |             |
-| ログインPassword |zabbix        |             |
+|      |     |
+|:---------------|:-------------|
+| Database name  |zabbix        |
+| User  |zabbix        |
+| Password  |zabbixpassword     |
+| ログインUsername |Admin        |
+| ログインPassword |zabbix       |
 
 zabbixサーバーが起動していない場合はサービスを再起動する
 ```
