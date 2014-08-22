@@ -25,25 +25,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.berkshelf.enabled = true
 
   config.vm.provision :chef_solo do |chef|
-=begin
     chef.run_list = %w[
+        recipe[zabbix_introduction::default]
         recipe[database::mysql]
         recipe[mysql::server]
-        recipe[zabbix_introduction::default]
-        recipe[zabbix_introduction::install]
-        recipe[zabbix_introduction::database]
-        recipe[zabbix_introduction::service]
-        recipe[zabbix_introduction::web]
-    ]
-=end
-    chef.run_list = %w[
-        recipe[database::mysql]
-        recipe[mysql::server]
-        recipe[zabbix_introduction::default]
-        recipe[zabbix_introduction::base]
-        recipe[zabbix_introduction::web]
-        recipe[zabbix_introduction::service]
-        recipe[zabbix_introduction::database]
+        recipe[zabbix22::base]
+        recipe[zabbix22::web]
+        recipe[zabbix22::service]
+        recipe[zabbix22::database]
     ]
   end
 end
