@@ -16,6 +16,12 @@ mysql_database 'zabbix' do
   action :create
 end
 
+mysql_database 'zabbix' do
+  connection mysql_connection_info
+  sql        'ALTER DATABASE `zabbix` default character set utf8'
+  action     :query
+end
+
 mysql_database_user 'zabbix' do
   connection mysql_connection_info
   password 'zabbixpassword'

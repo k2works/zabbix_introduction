@@ -90,6 +90,11 @@ $ service zabbix-agent start
 ```
 
 ## <a name="3">設定</a>
+### サーバー
+_site-cookbooks/zabbix22/templates/default/zabbix_server.conf.erb_  
+_site-cookbooks/zabbix22/templates/default/zabbix.conf.erb_
+### クライアント
+_site-cookbooks/zabbix22/templates/default/zabbix_agentd.conf.erb_
 
 # 参照
 + [vagrant-berkshelf](https://github.com/berkshelf/vagrant-berkshelf)

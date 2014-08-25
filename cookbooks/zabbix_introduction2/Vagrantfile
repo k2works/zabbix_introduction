@@ -33,6 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           recipe[zabbix22::web]
           recipe[zabbix22::service]
           recipe[zabbix22::database]
+          recipe[zabbix22::agent]
       ]
     end
 
@@ -45,6 +46,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       chef.run_list = %w[
           recipe[zabbix22::base]
           recipe[zabbix22::agent]
+          recipe[mysql::server]
+          recipe[apache2::default]
       ]
     end
   end
