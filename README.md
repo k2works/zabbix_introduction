@@ -56,7 +56,14 @@ $ vagrant up --provision
 $ vagrant ssh
 $ echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
 ```
-プロビジョニングが完了したら_http://192.168.33.10/zabbix/_にアクセスしてセットアップ。
+### 初期データ投入
+```bash
+$ vagrant ssh host1
+$ cd /usr/share/doc/zabbix-server-mysql-2.2.5/create/
+$ cat schema.sql images.sql data.sql | mysql -uzabbix -pzabbixpassword zabbix
+```
+
+プロビジョニング・初期データ投入が完了したら_http://192.168.33.10/zabbix/_にアクセスしてセットアップ。
 
 |      |     |
 |:---------------|:-------------|
@@ -93,6 +100,8 @@ $ service zabbix-agent start
 ### サーバー
 _site-cookbooks/zabbix22/templates/default/zabbix_server.conf.erb_  
 _site-cookbooks/zabbix22/templates/default/zabbix.conf.erb_
+
+サーバーにエージェントをインストールした場合Server=127.0.0.1
 ### クライアント
 _site-cookbooks/zabbix22/templates/default/zabbix_agentd.conf.erb_
 
