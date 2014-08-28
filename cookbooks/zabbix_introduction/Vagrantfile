@@ -26,8 +26,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.run_list = %w[
-        recipe[zabbix_introduction::default]
         recipe[database::mysql]
+        recipe[zabbix_introduction::default]
         recipe[zabbix_introduction::server]
         recipe[zabbix_introduction::server_conf]
     ]
