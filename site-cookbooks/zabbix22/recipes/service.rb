@@ -13,11 +13,6 @@ service "zabbix-server" do
   supports :status => true, :restart => true, :reload => true
 end
 
-service "zabbix-agent" do
-  action [:enable, :start]
-  supports :status => true, :restart => true, :reload => true
-end
-
 service "httpd" do
   action [:enable, :start]
   supports :status => true, :restart => true, :reload => true

@@ -111,3 +111,6 @@ _site-cookbooks/zabbix22/templates/default/zabbix_agentd.conf.erb_
 + [RuntimeError: Couldn’t determine Berks versionエラーが出たら](http://kwmt27.net/index.php/2014/08/06/runtimeerror-couldnt-determine-berks-version/)
 + [Database Cookbook](https://github.com/opscode-cookbooks/database)
 + [サーバー設定ツール「Chef」の概要と基礎的な使い方 3ページ](http://sourceforge.jp/magazine/14/03/05/090000/3)
++ [chefでattributeファイルを上書きしたい時](http://d.hatena.ne.jp/toritori0318/20131112/1384273734)
++ [【Chef Solo】attributeはどう使い分けるべきか。](http://dev.classmethod.jp/server-side/chef/attribute-overrides-pattern/)
++ [include_recipeだけでは読み込み先のattributesが読み込まれない](http://qiita.com/mistymagich/items/5d6c429863e950ed92cf)
