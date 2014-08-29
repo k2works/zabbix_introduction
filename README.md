@@ -105,6 +105,18 @@ _site-cookbooks/zabbix22/templates/default/zabbix.conf.erb_
 ### クライアント
 _site-cookbooks/zabbix22/templates/default/zabbix_agentd.conf.erb_
 
+### Apache Webサーバの監視
+#### コンテンツが正常に表示できなければWebサービスを再起動する
+##### ウェブ監視の設定
+##### トリガーの設定
+##### アクションの設定
+##### リモートコマンドの許可とsudoの設定
+
+#### Webサーバのコネクション数の監視
+##### Apacheのステータス取得の設定
+##### ユーザーパラメータの設定
+##### アイテムの設定
+
 # 参照
 + [vagrant-berkshelf](https://github.com/berkshelf/vagrant-berkshelf)
 + [vagrant-omnibus](https://github.com/schisamo/vagrant-omnibus)
@@ -114,3 +126,6 @@ _site-cookbooks/zabbix22/templates/default/zabbix_agentd.conf.erb_
 + [chefでattributeファイルを上書きしたい時](http://d.hatena.ne.jp/toritori0318/20131112/1384273734)
 + [【Chef Solo】attributeはどう使い分けるべきか。](http://dev.classmethod.jp/server-side/chef/attribute-overrides-pattern/)
 + [include_recipeだけでは読み込み先のattributesが読み込まれない](http://qiita.com/mistymagich/items/5d6c429863e950ed92cf)
++ [apachectl status で、ステータスが表示されない](http://www.square-mi.com/wp/category/webserver/apache/)
++ [This account is currently not available.でsuで別ユーザに変更できない時](http://blog.mizoshiri.com/archives/214)
++ [【Zabbix】リモートコマンド　～ httpd落ちたら自動で立ち上がる編 ～](http://toatoshi.hatenablog.com/entry/2013/07/17/095543)
