@@ -108,14 +108,40 @@ _site-cookbooks/zabbix22/templates/default/zabbix_agentd.conf.erb_
 ### Apache Webサーバの監視
 #### コンテンツが正常に表示できなければWebサービスを再起動する
 ##### ウェブ監視の設定
+![](https://farm4.staticflickr.com/3926/14914406087_76633383ea.jpg)
+![](https://farm6.staticflickr.com/5558/15100606652_85a5baac9c.jpg)
 ##### トリガーの設定
+![](https://farm6.staticflickr.com/5592/15077976226_4f5bbb10d6.jpg)
+![](https://farm4.staticflickr.com/3882/14914401068_dd42681bee.jpg)
 ##### アクションの設定
+![](https://farm4.staticflickr.com/3885/14914406137_e19c9c4f6d.jpg)
+![](https://farm6.staticflickr.com/5559/15077976106_4839637ea6.jpg)
+![](https://farm4.staticflickr.com/3835/15100606702_e15e8b4176.jpg)
+![](https://farm6.staticflickr.com/5551/15097959161_b18b99a970.jpg)
+
 ##### リモートコマンドの許可とsudoの設定
+_/etc/zabbix/zabbix_agentd.conf_
+```
+EnableRemoteCommands=1
+```
+監視対象のサーバーで、rootユーザでvisudoコマンドを実行する
+```
+#Defaults requiretty
+・・・
+zabbix localhost=(root) NOPASSWD:/etc/init.d/httpd
+```
 
 #### Webサーバのコネクション数の監視
 ##### Apacheのステータス取得の設定
+_/etc/httpd/mods-enabled/status.conf_が有効になっているか確認する
+
 ##### ユーザーパラメータの設定
+_/etc/zabbix/zabbix_agentd.conf_
+```
+UserParameter=apache.con.num,sudo /usr/sbin/apachectl status|grep "requests currently being processed"|awk '{print $1}'
+```
 ##### アイテムの設定
+![](https://farm4.staticflickr.com/3840/15077976196_3eb518c9fe.jpg)
 
 # 参照
 + [vagrant-berkshelf](https://github.com/berkshelf/vagrant-berkshelf)
