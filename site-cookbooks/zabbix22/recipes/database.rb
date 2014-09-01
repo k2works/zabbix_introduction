@@ -16,6 +16,12 @@ mysql_database 'zabbix' do
   action :create
 end
 
+mysql_database 'zabbix' do
+  connection mysql_connection_info
+  sql        'ALTER DATABASE `zabbix` default character set utf8'
+  action     :query
+end
+
 mysql_database_user 'zabbix' do
   connection mysql_connection_info
   password 'zabbixpassword'
@@ -30,14 +36,7 @@ mysql_database_user 'zabbix' do
   action :grant
 end
 
-template "/etc/zabbix/zabbix_server.conf" do
-    owner "root"
-    group "root"
-    mode "0644"
-    only_if {File.exists?("/etc/zabbix")}
-end
-
-execute "MySQLデータベースに初期データをインポート" do
-  cwd '/usr/share/doc/zabbix-server-mysql-2.2.5/create/'
-  only_if { command "cat schema.sql images.sql data.sql | mysql -uzabbix -pzabbixpassword zabbix" }
-end
+#execute "MySQLデータベースに初期データをインポート" do
+#  cwd '/usr/share/doc/zabbix-server-mysql-2.2.5/create/'
+#  only_if { command "cat schema.sql images.sql data.sql | mysql -uzabbix -pzabbixpassword zabbix" }
+#end

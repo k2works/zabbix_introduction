@@ -25,17 +25,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     host1.vm.network :private_network, ip: "192.168.33.10"
     host1.vm.provision :chef_solo do |chef|
       chef.run_list = %w[
-          recipe[zabbix_introduction2::default]
-          recipe[database::mysql]
-          recipe[mysql::server]
-          recipe[zabbix22::base]
-          recipe[zabbix22::server]
-          recipe[zabbix22::web]
-          recipe[zabbix22::service]
-          recipe[zabbix22::database]
+        recipe[database::mysql]
+        recipe[zabbix_introduction2::default]
+        recipe[zabbix_introduction2::server]
+        recipe[zabbix_introduction2::server_conf]
       ]
     end
-
   end
 
   config.vm.define :host2 do | host2 |
@@ -43,8 +38,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     host2.vm.network :private_network, ip: "192.168.33.20"
     host2.vm.provision :chef_solo do |chef|
       chef.run_list = %w[
-          recipe[zabbix22::base]
-          recipe[zabbix22::agent]
+        recipe[database::mysql]
+        recipe[zabbix_introduction2::default]
+        recipe[zabbix_introduction2::agent]
+        recipe[zabbix_introduction2::agent_conf]
+      ]
+    end
+  end
+
+  config.vm.define :host3 do | host3 |
+    host3.vm.hostname = "zabbix-proxy"
+    host3.vm.network :private_network, ip: "192.168.33.30"
+    host3.vm.provision :chef_solo do |chef|
+      chef.run_list = %w[
+        recipe[database::mysql]
+        recipe[zabbix_introduction2::default]
+        recipe[zabbix_introduction2::proxy]
+        recipe[zabbix_introduction2::proxy_conf]
       ]
     end
   end
