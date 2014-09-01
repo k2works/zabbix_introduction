@@ -173,14 +173,23 @@ UserParameter=mysql.thread_cache_size,sudo /usr/bin/mysqladmin variables|grep th
 
 ##### アイテムの設定
 MySQL Connections
+
 ![012](https://farm4.staticflickr.com/3924/15100438551_16db72b43c.jpg)
+
 MySQL max_connection
+
 ![013](https://farm4.staticflickr.com/3916/14916880667_12d26f9f7a.jpg)
+
 MySQL Query per sec avg
+
 ![014](https://farm4.staticflickr.com/3873/14916805030_2dd1ab0837.jpg)
+
 MySQL Threads_created
+
 ![015](https://farm6.staticflickr.com/5592/14916885218_18a50c3632.jpg)
+
 MySQL thread_cache_size
+
 ![016](https://farm4.staticflickr.com/3879/15103442155_25ca7d810b.jpg)
 
 
