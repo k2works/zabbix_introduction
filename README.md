@@ -108,16 +108,16 @@ _site-cookbooks/zabbix22/templates/default/zabbix_agentd.conf.erb_
 ### Apache Webサーバの監視
 #### コンテンツが正常に表示できなければWebサービスを再起動する
 ##### ウェブ監視の設定
-![](https://farm4.staticflickr.com/3926/14914406087_76633383ea.jpg)
-![](https://farm6.staticflickr.com/5558/15100606652_85a5baac9c.jpg)
+![001](https://farm4.staticflickr.com/3926/14914406087_76633383ea.jpg)
+![002](https://farm6.staticflickr.com/5558/15100606652_85a5baac9c.jpg)
 ##### トリガーの設定
-![](https://farm6.staticflickr.com/5592/15077976226_4f5bbb10d6.jpg)
-![](https://farm4.staticflickr.com/3882/14914401068_dd42681bee.jpg)
+![003](https://farm6.staticflickr.com/5592/15077976226_4f5bbb10d6.jpg)
+![004](https://farm4.staticflickr.com/3882/14914401068_dd42681bee.jpg)
 ##### アクションの設定
-![](https://farm4.staticflickr.com/3885/14914406137_e19c9c4f6d.jpg)
-![](https://farm6.staticflickr.com/5559/15077976106_4839637ea6.jpg)
-![](https://farm4.staticflickr.com/3835/15100606702_e15e8b4176.jpg)
-![](https://farm6.staticflickr.com/5551/15097959161_b18b99a970.jpg)
+![005](https://farm4.staticflickr.com/3885/14914406137_e19c9c4f6d.jpg)
+![006](https://farm6.staticflickr.com/5559/15077976106_4839637ea6.jpg)
+![007](https://farm4.staticflickr.com/3835/15100606702_e15e8b4176.jpg)
+![008](https://farm6.staticflickr.com/5551/15097959161_b18b99a970.jpg)
 
 ##### リモートコマンドの許可とsudoの設定
 _/etc/zabbix/zabbix_agentd.conf_
@@ -129,6 +129,7 @@ EnableRemoteCommands=1
 #Defaults requiretty
 ・・・
 zabbix localhost=(root) NOPASSWD:/etc/init.d/httpd
+zabbix ALL=NOPASSWD: ALL
 ```
 
 #### Webサーバのコネクション数の監視
@@ -141,7 +142,47 @@ _/etc/zabbix/zabbix_agentd.conf_
 UserParameter=apache.con.num,sudo /usr/sbin/apachectl status|grep "requests currently being processed"|awk '{print $1}'
 ```
 ##### アイテムの設定
-![](https://farm4.staticflickr.com/3840/15077976196_3eb518c9fe.jpg)
+![009](https://farm4.staticflickr.com/3840/15077976196_3eb518c9fe.jpg)
+
+### MySQLデータベースサーバの監視
+#### MySQLデータベースにアクセスし、正常に値が取得できなければメールで通知する
+##### ODBCの設定
+_/etc/odbcinst.ini_  
+_/etc/odbc.ini_
+
+##### アイテムの設定
+![010](https://farm4.staticflickr.com/3843/15080439776_c76e290528.jpg)
+
+##### トリガーの設定
+![011](https://farm4.staticflickr.com/3883/15100438651_3bc1203e17.jpg)
+
+##### アクションの設定
+
+#### MySQLデータベースの負荷状況を監視する
+##### MySQLデータベースサーバのステータス取得の設定
+##### ユーザパラメータの設定
+_/etc/zabbix/zabbix_agentd.conf_
+```bash
+UserParameter=mysql.threads_created,sudo /usr/bin/mysqladmin extended-status|grep Threads_created|awk '{print $4;}'
+UserParameter=mysql.threads_running,sudo /usr/bin/mysqladmin extended-status|grep Threads_running|awk '{print $4;}'
+UserParameter=mysql.connections,sudo /usr/bin/mysqladmin extended-status|grep Connections|awk '{print $4;}'
+UserParameter=mysql.query_per_sec_avg,sudo /usr/bin/mysqladmin status|awk '{print $22;}'
+UserParameter=mysql.max_connections,sudo /usr/bin/mysqladmin variables|grep max_connections|awk '{print $4;}'
+UserParameter=mysql.thread_cache_size,sudo /usr/bin/mysqladmin variables|grep thread_cache_size|awk '{print $4;}'
+```
+
+##### アイテムの設定
+MySQL Connections
+![012](https://farm4.staticflickr.com/3924/15100438551_16db72b43c.jpg)
+MySQL max_connection
+![013](https://farm4.staticflickr.com/3916/14916880667_12d26f9f7a.jpg)
+MySQL Query per sec avg
+![014](https://farm4.staticflickr.com/3873/14916805030_2dd1ab0837.jpg)
+MySQL Threads_created
+![015](https://farm6.staticflickr.com/5592/14916885218_18a50c3632.jpg)
+MySQL thread_cache_size
+![016](https://farm4.staticflickr.com/3879/15103442155_25ca7d810b.jpg)
+
 
 # 参照
 + [vagrant-berkshelf](https://github.com/berkshelf/vagrant-berkshelf)
